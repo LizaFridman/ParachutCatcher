@@ -3,36 +3,37 @@ package main.java.game;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.KeyListener;
 
 import static main.java.game.Utils.GameConstants.WINDOW_HEIGHT;
 import static main.java.game.Utils.GameConstants.WINDOW_WIDTH;
 
 public class UI extends JFrame {
+    private Game gamePanel;
 
     public UI(Player player) {
-        Game startLevel  = new Game(player);
+        gamePanel = new Game(player);
 
-        setupGamePanel(startLevel);
-        setupGameListener(startLevel);
-        setupGameFrame(startLevel);
+        setupGamePanel();
+        setupGameFrame();
     }
 
     public void startGame(){
         setVisible(true);
     }
 
-    private void setupGamePanel(Game gamePanel) {
+    private void setupGamePanel() {
         gamePanel.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         gamePanel.setDoubleBuffered(true);
         gamePanel.setFocusable(true);
+
+        setupGameListener();
     }
 
-    private void setupGameListener(Game startLevel) {
-        startLevel.addKeyListener(startLevel);
+    private void setupGameListener() {
+        gamePanel.addKeyListener(gamePanel);
     }
 
-    private void setupGameFrame(Game gamePanel) {
+    private void setupGameFrame() {
         this.add(gamePanel);
         this.setTitle("Parachutist Catcher");
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);

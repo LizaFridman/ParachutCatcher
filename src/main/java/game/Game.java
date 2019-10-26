@@ -50,8 +50,8 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void run() {
-        requestFocusInWindow();
         resetGame();
+        requestFocusInWindow();
 
         while(!isGameOver){
             long beforeUpdate = System.currentTimeMillis();
@@ -158,6 +158,17 @@ public class Game extends JPanel implements Runnable, KeyListener {
     private void draw(Graphics2D graphics) {
         drawGameElements(graphics);
         drawScoreBoard(graphics);
+
+        if (isGameOver) {
+            drawGameOver(graphics);
+        }
+    }
+
+    private void drawGameOver(Graphics2D graphics) {
+        graphics.setColor(Color.black);
+        graphics.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 50));
+        graphics.drawString("Game Over!", WINDOW_WIDTH/3 - 10, WINDOW_HEIGHT/3);
+        graphics.drawString("Final Score: "+player.getScore(), WINDOW_WIDTH/3 - 30, WINDOW_HEIGHT/3 + 50);
     }
 
     private void drawGameElements(Graphics2D graphics){
@@ -176,8 +187,20 @@ public class Game extends JPanel implements Runnable, KeyListener {
 
     private void drawScoreBoard(Graphics2D graphics){
         graphics.setColor(Color.black);
-        graphics.drawString("Life: " + player.getLives(), 10, 30);
-        graphics.drawString("Score: " + player.getScore(), 10, 50);
+        graphics.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 20));
+
+        drawLivesString(graphics);
+        drawScoreString(graphics);
+    }
+
+    private void drawLivesString(Graphics2D graphics) {
+        graphics.drawString("Life: ", 10, 30);
+        graphics.drawString(player.getLives() + "", 85, 30);
+    }
+
+    private void drawScoreString(Graphics2D graphics) {
+        graphics.drawString("Score: ", 10, 50);
+        graphics.drawString(player.getScore() + "", 85, 50);
     }
 
     @Override

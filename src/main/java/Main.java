@@ -1,12 +1,9 @@
 package main.java;
 
-import main.java.game.Game;
 import main.java.game.Player;
 import main.java.game.UI;
 
 import javax.swing.SwingUtilities;
-
-import static main.java.game.Utils.GameConstants.*;
 
 public class Main {
 
@@ -14,12 +11,12 @@ public class Main {
         Player player = new Player(0,3, "Catcher");
 
         SwingUtilities.invokeLater(() -> {
-            UI gameUI = setupFrame(player);
+            UI gameUI = setupUI(player);
             gameUI.startGame();
         });
     }
 
-    public static UI setupFrame(Player player){
+    public static UI setupUI(Player player){
          return new UI(player);
     }
 }
